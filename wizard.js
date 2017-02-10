@@ -14,14 +14,23 @@ angular.module("fuelux.wizard", [])
         for(var step=0; step < steps.length; step++){//register steps
             scope.steps.push({currentStep:false});
             stepEle = angular.element(steps[step]).attr('ng-class', '{active:steps['+step+'].currentStep, complete:'+step+'<currentStepIndex}');
-            stepEle.attr('ng-click', 'stepClicked('+step+')');
-            stepEle.find('span.badge').attr('ng-class', '{\'badge-info\':steps['+step+'].currentStep, \'badge-success\':'+step+'<currentStepIndex}');
+            stepEle.attr('ng-click', 'stepClicked('+step+')');				
+	    angular.element(document.querySelector('span.badge')).attr('ng-class', '{\'badge-info\':steps['+step+'].currentStep, \'badge-success\':'+step+'<currentStepIndex}');
 
             angular.element(stepContents[step]).attr('ng-class', '{active:steps['+step+'].currentStep}');
         }
-		ele.find('button.btn-prev').attr('ng-click','showPreviousStep()').attr('ng-disabled', '!hasPrevious()');
-        ele.find('button.btn-next').attr('ng-click','showNextStep()').attr('ng-disabled', '!hasNext() && !isFinish()');
-        
+	var btnPrevs = document.querySelectorAll( '.btn-prev' );
+	for (var i = 0; i < btnPrevs.length; ++i) {
+		angular.element(btnPrevs[i]).attr('ng-click','showPreviousStep()');
+		angular.element(btnPrevs[i]).attr('ng-disabled', '!hasPrevious()');
+	}
+	    
+	var btnNexts = document.querySelectorAll( '.btn-next' );
+	for (var j = 0; j < btnNexts.length; ++j) {
+		angular.element(btnNexts[j]).attr('ng-click','showNextStep()');
+		angular.element(btnNexts[j]).attr('ng-disabled', '!hasNext() && !isFinish()');
+	}
+	    
         scope.steps[scope.currentStepIndex].currentStep = true;
         $compile(ele)(scope);
 
