@@ -6,7 +6,8 @@ angular.module("fuelux.wizard", [])
     scope: true,//{change: '&',    changed: '&', wizard:'='},
     link: function(scope, ele, attrs){
         ele.removeAttr("wizard");
-        var steps = ele.find(".wizard > .steps > li"), stepContents = ele.find(".step-content > .step-pane"), stepEle;
+        var steps = document.querySelectorAll(".wizard > .steps > li");
+	var stepContents = document.querySelectorAll(".step-content > .step-pane");
 
 	scope.attrWiz = attrs.wizard;
 	scope.currentStepIndex = (+ scope.$eval(scope.attrWiz));
